@@ -88,10 +88,10 @@ If the uploading process was successfull, will appear this panel alongside this 
 The user flag is in the website directory.  
 ![alt text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Root%20me/images/89-5.png)
 
-Now it's time for privesc. Among these binaries is also python.
+Now it's time for privesc. Among these binaries is also python.  
 ![alt text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Root%20me/images/89-6.png)
 
-The payload below was taken from gtfobins. The only thing to do is to read the root flag.
+The payload below was taken from gtfobins. The only thing to do is to read the root flag.  
 ![alt text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Root%20me/images/89-7.png)
 
 
