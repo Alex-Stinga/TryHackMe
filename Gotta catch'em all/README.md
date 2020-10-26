@@ -33,7 +33,7 @@ As i am in the system, i will look for the flags/pokemons. I am in pokemon's hom
 I found this directory just because it catched my eyes when i was doing something else.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Gotta%20catch'em%20all/images/88-5.png)
 
-This pokemon was the second, easiest to find, as the hint suggested to look for a specific location.
+This pokemon was the second, easiest to find, as the hint suggested to look for a specific location.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/Gotta%20catch'em%20all/images/88-6.png)
 
 It was a good thing, that i verified each folder in the home directory, because i found this file which contains the root credentials.
