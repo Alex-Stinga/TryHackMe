@@ -52,7 +52,7 @@ password:
 ```
 
 The password docoded from binary is: iconvertedmypasswordtobinary  
-I remembered, the nmap scan found this file Robots.txt and i did not accessed it. The page has something that looks like a hash as User-Agent. After i decoded this hash i had the second flag.
+I remembered, the nmap scan found this file Robots.txt and i did not accessed it. The page has something that looks like a hash as User-Agent. After i decoded this hash i had the second flag.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-6.png)
 
 With the found credentials i can log in into the ssh service. The user flag looks caesar encoded.
@@ -67,7 +67,7 @@ This file belongs to boring user and i can modify it however i want.
 The main advantage is that, when is executed is running with root privileges.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-10.png)
 
-I opted for a reverse shell and now i am root.
+I opted for a reverse shell and now i am root.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-11.png)
 
 Here is the root flag, but i don't have all the flags.  
