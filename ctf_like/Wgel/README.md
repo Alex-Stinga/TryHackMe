@@ -94,7 +94,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /js (Status: 301)
 ```
   
-Here is the rsa key that would be useful when login via ssh.
+Here is the rsa key that would be useful when login via ssh.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Wgel/images/79-5.png)
 
 To login via ssh using a private key, the permissions of the file needs to be set.
