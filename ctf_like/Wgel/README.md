@@ -93,7 +93,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /index.html (Status: 200)
 /js (Status: 301)
 ```
-
+  
 Here is the rsa key that would be useful when login via ssh.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Wgel/images/79-5.png)
 
