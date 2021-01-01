@@ -51,8 +51,7 @@ password:
 01101001 01100011 01101111 01101110 01110110 01100101 01110010 01110100 01100101 01100100 01101101 01111001 01110000 01100001 01110011 01110011 01110111 01101111 01110010 01100100 01110100 01101111 01100010 01101001 01101110 01100001 01110010 01111001
 ```
 
-The password docoded from binary is: iconvertedmypasswordtobinary
-
+The password docoded from binary is: iconvertedmypasswordtobinary  
 I remembered, the nmap scan found this file Robots.txt and i did not accessed it. The page has something that looks like a hash as User-Agent. After i decoded this hash i had the second flag.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-6.png)
 
@@ -65,7 +64,7 @@ In /etc/crontab is an interesting scheduled task.
 This file belongs to boring user and i can modify it however i want.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-9.png)
 
-The main advantage is that, when is executed is running with root privileges.
+The main advantage is that, when is executed is running with root privileges.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Easy_peasy/images/46-10.png)
 
 I opted for a reverse shell and now i am root.
