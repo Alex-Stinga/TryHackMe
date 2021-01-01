@@ -131,10 +131,10 @@ Using smbmap i was able to login with no password and noticed i can access the p
 
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Anonymous/images/119-2.png)
 
-The folder contains 2 pictures and based on their names, are about puppies.
+The folder contains 2 pictures and based on their names, are about puppies.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Anonymous/images/119-3.png)
 
-To download the files i used the -R parameter.
+To download the files i used the -R parameter.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Anonymous/images/119-4.png)
 
 There picture were a distraction as they didn't contained anything of use. I tried exiftool, binwalk, stegsolve.jar, and even looked at their hex representation and didn't find a specific string which denoted the use of steghide.   
