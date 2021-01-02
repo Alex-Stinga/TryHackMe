@@ -137,7 +137,7 @@ This password can be used to login to the ssh service with username weston (this
 
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Break_out_the_cage/images/72-3.png)
 
-The user has sudo perminssions on the binary bees.
+The user has sudo perminssions on the binary bees.  
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Break_out_the_cage/images/72-4.png)
 
 The binary uses the wall command to echo the string below.
